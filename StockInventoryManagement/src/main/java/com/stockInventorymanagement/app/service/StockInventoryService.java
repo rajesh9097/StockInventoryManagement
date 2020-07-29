@@ -40,9 +40,10 @@ public class StockInventoryService {
 	  }
 	}
 	
-	public void sellStock(int stockNumber, int quantity) {
+	public StockDetails sellingStock(int stockNumber, int quantity) {
 	 StockDetails stock = stockInventoryRepository.findById(stockNumber).get();
 	 int qty = stock.getQuantity()-quantity;
 	 stock.setQuantity(qty);
+	 return stockInventoryRepository.save(stock);
 	}
 }
