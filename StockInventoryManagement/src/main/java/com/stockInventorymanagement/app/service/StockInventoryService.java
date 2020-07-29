@@ -1,6 +1,9 @@
 package com.stockInventorymanagement.app.service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +48,20 @@ public class StockInventoryService {
 	 int qty = stock.getQuantity()-quantity;
 	 stock.setQuantity(qty);
 	 return stockInventoryRepository.save(stock);
+	}
+	
+	public List<StockDetails> customSort(String name) {
+		List<StockDetails> list = stockInventoryRepository.findAll();
+		List<StockDetails> result = null;
+		if (name.equals("stockName")) {
+		 result = list.stream().sorted(Comparator.comparing(StockDetails::getStockName)).collect(Collectors.toList());
+		}
+		if (name.equals("purchasingPrice")) {
+		result = list.stream().sorted(Comparator.comparing(StockDetails::getPurchasingPrice)).collect(Collectors.toList());
+		}
+		if (name.equals("purchaseDate")) {
+		result = list.stream().sorted(Comparator.comparing(StockDetails::getPurchaseDate)).collect(Collectors.toList());
+		}
+       return result;
 	}
 }

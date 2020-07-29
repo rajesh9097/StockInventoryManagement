@@ -70,4 +70,10 @@ public class StockInventoryController {
 	public void deletestock() {
 		stockInventoryService.deleteStock();
 	}
+	
+	
+	@GetMapping("/sort/{name}")
+	public List<StockDetails> customSort(@PathVariable String name){
+	 return stockInventoryService.customSort(name);
+	}
 }
